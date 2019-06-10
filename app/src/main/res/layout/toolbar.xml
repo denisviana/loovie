@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 android:background="@android:color/transparent"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="?attr/actionBarSize">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:background="@android:color/transparent"
+              android:layout_width="match_parent"
+              android:layout_height="?attr/actionBarSize">
 
-
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.AppBarLayout
             android:background="@android:color/transparent"
-            android:id="@+id/toolbar"
-            app:title=""
-            app:titleTextColor="@color/colorAccent"
+            android:layout_width="match_parent"
             android:elevation="0dp"
             app:elevation="0dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="?attr/actionBarSize">
+
+        <androidx.appcompat.widget.Toolbar
+                android:background="@android:color/transparent"
+                android:id="@+id/toolbar"
+                app:title=""
+                app:titleTextColor="@color/colorAccent"
+                android:elevation="0dp"
+                app:elevation="0dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
-</com.google.android.material.appbar.AppBarLayout>
+</LinearLayout>

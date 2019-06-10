@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 ext {
-    okhttp_version = '3.8.1'
+    okhttp_version = '4.0.0-alpha02'
     retrofit_version = '2.6.0'
     rxjava_version = '2.1.7'
     androidArchitectureVersion = "1.1.0"
@@ -28,6 +28,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+    buildToolsVersion = '28.0.3'
 }
 
 sourceSets {
@@ -52,7 +62,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     //Design
-    implementation 'com.google.android.material:material:1.1.0-alpha07'
+    implementation 'com.google.android.material:material:1.0.0-rc01'
 
     // Koin
     implementation "org.koin:koin-android-scope:$koin_version"
@@ -76,7 +86,7 @@ dependencies {
 
     // Rx
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     //BaseRecyclerViewAdapterHelper
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
@@ -84,6 +94,12 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    //TagGroup
+    implementation 'me.gujun.android.taggroup:library:1.4@aar'
+
+    //Facebook Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.4.0'
 
 }
 

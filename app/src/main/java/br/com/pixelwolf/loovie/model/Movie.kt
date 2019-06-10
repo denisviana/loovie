@@ -1,7 +1,10 @@
 package br.com.pixelwolf.loovie.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Movie(@SerializedName("overview")
                  var overview: String? = null,
                  @SerializedName("original_language")
@@ -27,5 +30,13 @@ data class Movie(@SerializedName("overview")
                  @SerializedName("adult")
                  var adult: Boolean? = null,
                  @SerializedName("vote_count")
-                 var voteCount: Int? = null
-)
+                 var voteCount: Int? = null,
+                 @SerializedName("genres")
+                 var genres : List<Genre>? = null,
+                 @SerializedName("runtime")
+                 var runtime : Int? = null,
+                 @SerializedName("budget")
+                 var budget : Int? = null,
+                 @SerializedName("revenue")
+                 var revenue : Int? = null
+) : Parcelable

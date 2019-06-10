@@ -19,8 +19,8 @@ interface RestApiService {
 
     @GET("movie/{movie_id}")
     suspend fun getMovieById(
-        @Query("api_key") api_key: String,
         @Path("movie_id") movieId : Int,
+        @Query("api_key") api_key: String,
         @Query("language") lang: String
     ): Response<Movie>
 

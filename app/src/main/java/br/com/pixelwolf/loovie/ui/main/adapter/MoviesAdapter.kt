@@ -3,6 +3,7 @@ package br.com.pixelwolf.loovie.ui.main.adapter
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import br.com.pixelwolf.loovie.R
 import br.com.pixelwolf.loovie.model.Movie
 import com.bumptech.glide.Glide
@@ -30,6 +31,8 @@ class MoviesAdapter(movies : MutableList<Movie>) : BaseQuickAdapter<Movie, BaseV
         Glide.with(mContext)
             .load("https://image.tmdb.org/t/p/w154/${item.posterPath}")
             .into(helper.getView(R.id.movie_poster)!!)
+
+        ViewCompat.setTransitionName(helper.getView(R.id.movie_poster), item.title)
 
         helper.setText(R.id.movie_title, item.title)
         helper.setText(R.id.movie_vote_average, item.voteAverage.toString())

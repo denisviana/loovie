@@ -2,13 +2,15 @@ package br.com.pixelwolf.loovie.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
+import android.transition.Slide
+import android.view.*
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.LayoutInflaterCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
@@ -16,7 +18,9 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import br.com.pixelwolf.loovie.R
+import br.com.pixelwolf.loovie.model.Movie
 import br.com.pixelwolf.loovie.ui.main.adapter.MoviesAdapter
+import br.com.pixelwolf.loovie.ui.movie_details.MovieDetailsActivity
 import br.com.pixelwolf.loovie.ui.util.CustomLoadingMoreView
 import br.com.pixelwolf.loovie.ui.util.PaginationScrollListener
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initTransition()
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar)
@@ -44,6 +49,16 @@ class MainActivity : AppCompatActivity() {
         rv_movies.adapter = adapter
 
         adapter.setLoadMoreView(CustomLoadingMoreView())
+
+        adapter.setOnItemClickListener { adapter, view, position ->
+            val movie = adapter.data[position] as Movie
+            val sharedView = view.findViewById<ImageView>(R.id.movie_poster)
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                sharedView,
+                "poster")
+            startActivity(MovieDetailsActivity.createIntent(this,movie), options.toBundle())
+        }
 
         rv_movies.addOnScrollListener(object : PaginationScrollListener(layoutManager){
             override fun isLastPage(): Boolean {
@@ -100,6 +115,15 @@ class MainActivity : AppCompatActivity() {
         viewModel.getUpComingMovies()
 
     }
+    private fun initTransition(){
+        with(window){
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            enterTransition = Slide(Gravity.END)
+
+            exitTransition = Slide(Gravity.START)
+        }
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
