@@ -36,7 +36,7 @@ class MoviesAdapter(movies : MutableList<Movie>) : BaseQuickAdapter<Movie, BaseV
         ViewCompat.setTransitionName(helper.getView(R.id.movie_poster), item.title)
 
         helper.setText(R.id.movie_title, item.title)
-        helper.setText(R.id.movie_vote_average, item.voteAverage.toString())
+        helper.setText(R.id.movie_vote_average, "${item.voteAverage.toString()}/10")
 
     }
 }

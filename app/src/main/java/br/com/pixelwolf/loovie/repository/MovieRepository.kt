@@ -12,22 +12,19 @@ class MovieRepository(
 ) : IMovieRepository {
 
     override suspend fun getUpcomingMovies(
-        apiKey : String,
         language : String,
         page : Int,
-        region : String): Response<MoviesResponse> = api.getUpcomingMovies(api_key = apiKey, lang = language, page = page, region = region)
+        region : String): Response<MoviesResponse> = api.getUpcomingMovies(lang = language, page = page, region = region)
 
     override suspend fun getMovieById(
-        apiKey : String,
         movieId : Int,
         language : String
-    ): Response<Movie> = api.getMovieById(api_key = apiKey, lang = language, movieId = movieId)
+    ): Response<Movie> = api.getMovieById(lang = language, movieId = movieId)
 
     override suspend fun searchMovies(
-        api_key: String,
         lang: String,
         region: String,
         query: String
-    ): Response<MoviesResponse> = api.searchMovies(api_key = api_key, lang = lang, region = region, query = query)
+    ): Response<MoviesResponse> = api.searchMovies(lang = lang, region = region, query = query)
 
 }

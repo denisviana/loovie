@@ -3,6 +3,7 @@ package br.com.pixelwolf.loovie.di
 import br.com.pixelwolf.loovie.api.RestApiService
 import br.com.pixelwolf.loovie.api.response.ErrorClass
 import br.com.pixelwolf.loovie.api.util.ApiConst.HOST
+import br.com.pixelwolf.loovie.api.util.AuthInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,6 +27,7 @@ fun createOkHttpClient(): OkHttpClient {
     return OkHttpClient.Builder()
         .connectTimeout(60L, TimeUnit.SECONDS)
         .readTimeout(60L, TimeUnit.SECONDS)
+        .addInterceptor(AuthInterceptor())
         .addInterceptor(httpLoggingInterceptor).build()
 }
 

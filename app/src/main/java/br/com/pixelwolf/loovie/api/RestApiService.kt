@@ -11,7 +11,6 @@ interface RestApiService {
 
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(
-        @Query("api_key") api_key: String,
         @Query("language") lang: String,
         @Query("region") region : String,
         @Query("page") page: Int
@@ -20,13 +19,11 @@ interface RestApiService {
     @GET("movie/{movie_id}")
     suspend fun getMovieById(
         @Path("movie_id") movieId : Int,
-        @Query("api_key") api_key: String,
         @Query("language") lang: String
     ): Response<Movie>
 
     @GET("search/movie")
     suspend fun searchMovies(
-        @Query("api_key") api_key: String,
         @Query("language") lang: String,
         @Query("region") region : String,
         @Query("query") query : String

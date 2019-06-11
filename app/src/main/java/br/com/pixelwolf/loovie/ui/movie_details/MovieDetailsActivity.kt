@@ -104,8 +104,6 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         }else details_release_date!!.visibility = GONE
 
-        details_release_date.text = movie.releaseDate
-
         if(movie.voteAverage!! > 0){
             details_average.visibility = VISIBLE
             details_average.text = "${movie.voteAverage}/10"

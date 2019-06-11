@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.pixelwolf.loovie.api.response.ErrorClass
 import br.com.pixelwolf.loovie.api.response.MoviesResponse
+import br.com.pixelwolf.loovie.api.util.ApiConst.LANG
+import br.com.pixelwolf.loovie.api.util.ApiConst.REGION
 import br.com.pixelwolf.loovie.model.Movie
 import br.com.pixelwolf.loovie.repository.IMovieRepository
 import br.com.pixelwolf.loovie.ui.movie_details.MovieDetailsViewModel
@@ -19,8 +21,6 @@ class MainViewModel(
     val converter : Converter<ResponseBody, ErrorClass>
 ) : ViewModel(){
 
-    private val LANG = "pt-BR"
-    private val REGION = "BR"
     private var page = 0
 
     val state = MutableLiveData<MoviesState>()
@@ -32,7 +32,7 @@ class MainViewModel(
         viewModelScope.launch{
 
             val response : Response<MoviesResponse> = try{
-                mainRepository.getUpcomingMovies(apiKey = "1f54bd990f1cdfb230adb312546d765d", language = LANG, region = REGION, page = page)
+                mainRepository.getUpcomingMovies(language = LANG, region = REGION, page = page)
             }catch (e : Exception){
                 e.printStackTrace()
                 state.postValue(MoviesState.Error("Unexpected error, please try later"))
@@ -59,7 +59,7 @@ class MainViewModel(
         viewModelScope.launch {
 
             val response : Response<MoviesResponse> = try{
-                mainRepository.searchMovies(api_key = "1f54bd990f1cdfb230adb312546d765d", lang = LANG, region = REGION, query = query)
+                mainRepository.searchMovies(lang = LANG, region = REGION, query = query)
             }catch (e : Exception){
                 e.printStackTrace()
                 state.postValue(MoviesState.Error("Unexpected error, please try later"))

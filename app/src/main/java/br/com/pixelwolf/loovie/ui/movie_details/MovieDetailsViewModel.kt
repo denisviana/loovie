@@ -29,7 +29,6 @@ class MovieDetailsViewModel(
 
             val response : Response<Movie> = try{
                 movieRepository.getMovieById(
-                    "1f54bd990f1cdfb230adb312546d765d",
                     movieId = id,
                     language = LANG)
             }catch (e : Exception){
