@@ -30,6 +30,7 @@ class MoviesAdapter(movies : MutableList<Movie>) : BaseQuickAdapter<Movie, BaseV
 
         Glide.with(mContext)
             .load("https://image.tmdb.org/t/p/w154/${item.posterPath}")
+            .centerCrop()
             .into(helper.getView(R.id.movie_poster)!!)
 
         ViewCompat.setTransitionName(helper.getView(R.id.movie_poster), item.title)

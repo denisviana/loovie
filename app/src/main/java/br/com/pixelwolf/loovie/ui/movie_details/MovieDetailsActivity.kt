@@ -116,11 +116,11 @@ class MovieDetailsActivity : AppCompatActivity() {
 
 
         if(movie.revenue!= null && movie.budget!! > 0)
-            details_budget.text = String.format("US$ %,.2f", movie.budget!!.toFloat())
+            details_budget.text = String.format("Orçamento: US$ %,.2f", movie.budget!!.toFloat())
         else details_budget.visibility = GONE
 
         if(movie.revenue!= null && movie.revenue!! > 0)
-            details_revenue.text = String.format("US$ %,.2f", movie.revenue!!.toFloat())
+            details_revenue.text = String.format("Receita: US$ %,.2f", movie.revenue!!.toFloat())
         else details_revenue.visibility = GONE
 
         details_tag_group.setTags(

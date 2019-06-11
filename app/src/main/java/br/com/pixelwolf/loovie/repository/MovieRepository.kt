@@ -1,8 +1,10 @@
 package br.com.pixelwolf.loovie.repository
 
 import br.com.pixelwolf.loovie.api.RestApiService
+import br.com.pixelwolf.loovie.api.response.ErrorClass
 import br.com.pixelwolf.loovie.api.response.MoviesResponse
 import br.com.pixelwolf.loovie.model.Movie
+import retrofit2.Converter
 import retrofit2.Response
 
 class MovieRepository(

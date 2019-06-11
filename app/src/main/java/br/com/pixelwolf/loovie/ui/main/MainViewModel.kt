@@ -3,15 +3,20 @@ package br.com.pixelwolf.loovie.ui.main
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.pixelwolf.loovie.api.response.ErrorClass
 import br.com.pixelwolf.loovie.api.response.MoviesResponse
 import br.com.pixelwolf.loovie.model.Movie
 import br.com.pixelwolf.loovie.repository.IMovieRepository
+import br.com.pixelwolf.loovie.ui.movie_details.MovieDetailsViewModel
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
+import retrofit2.Converter
 import retrofit2.Response
 import java.lang.Exception
 
 class MainViewModel(
-    val mainRepository: IMovieRepository
+    val mainRepository: IMovieRepository,
+    val converter : Converter<ResponseBody, ErrorClass>
 ) : ViewModel(){
 
     private val LANG = "pt-BR"
@@ -27,10 +32,10 @@ class MainViewModel(
         viewModelScope.launch{
 
             val response : Response<MoviesResponse> = try{
-                mainRepository.getUpcomingMovies(apiKey = "1f54bd990f1cdfb230adb312546d765d", language = LANG, region = "BR", page = page)
+                mainRepository.getUpcomingMovies(apiKey = "1f54bd990f1cdfb230adb312546d765d", language = LANG, region = REGION, page = page)
             }catch (e : Exception){
                 e.printStackTrace()
-                state.postValue(MoviesState.Error("Error"))
+                state.postValue(MoviesState.Error("Unexpected error, please try later"))
                 return@launch
             }
 
@@ -39,8 +44,10 @@ class MainViewModel(
                     state.postValue(MoviesState.Empty)
                 else
                     state.postValue(MoviesState.Success(response.body()?.result!!))
-            }else
-                state.postValue(MoviesState.Error("Error"))
+            }else{
+                val error = converter.convert(response.errorBody()!!)
+                state.postValue(MoviesState.Error(error?.statusMessage!!))
+            }
         }
 
     }
@@ -55,7 +62,7 @@ class MainViewModel(
                 mainRepository.searchMovies(api_key = "1f54bd990f1cdfb230adb312546d765d", lang = LANG, region = REGION, query = query)
             }catch (e : Exception){
                 e.printStackTrace()
-                state.postValue(MoviesState.Error("Error"))
+                state.postValue(MoviesState.Error("Unexpected error, please try later"))
                 return@launch
             }
 
@@ -64,8 +71,10 @@ class MainViewModel(
                     state.postValue(MoviesState.Empty)
                 else
                     state.postValue(MoviesState.SearchSuccess(response.body()?.result!!))
-            }else
-                state.postValue(MoviesState.Error("Error"))
+            }else{
+                val error = converter.convert(response.errorBody()!!)
+                state.postValue(MoviesState.Error(error?.statusMessage!!))
+            }
 
         }
 

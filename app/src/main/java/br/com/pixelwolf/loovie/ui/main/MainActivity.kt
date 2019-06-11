@@ -7,6 +7,7 @@ import android.view.*
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.LayoutInflaterCompat
@@ -86,17 +87,20 @@ class MainActivity : AppCompatActivity() {
                 }
                 is MainViewModel.MoviesState.Empty -> {
                     loading_movies.visibility = GONE
-
+                    isLastPage = true
+                    if(loading!=null )
+                        adapter.removeFooterView(loading)
                 }
                 is MainViewModel.MoviesState.Error -> {
                     loading_movies.visibility = GONE
-
+                    error_movies.visibility = VISIBLE
+                    error_message.text = it.message
                 }
                 is MainViewModel.MoviesState.Success -> {
                     loading_movies.visibility = GONE
                     adapter.addData(it.movies)
                     isLoading = false
-                    if(loading!=null)
+                    if(loading!=null )
                         adapter.removeFooterView(loading)
                 }
                 is MainViewModel.MoviesState.SearchSuccess -> {
