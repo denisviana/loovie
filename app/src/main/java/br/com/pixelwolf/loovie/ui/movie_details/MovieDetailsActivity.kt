@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import br.com.pixelwolf.loovie.R
@@ -58,7 +59,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     shimmer_overview.visibility = VISIBLE
                 }
                 is MovieDetailsViewModel.MoviesState.Error -> {
-
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                 }
                 is MovieDetailsViewModel.MoviesState.Success -> {
                     shimmer_header.visibility = GONE
@@ -69,8 +70,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         })
 
         viewModel.getMovieDetails(movie?.id!!)
-
-        //details_tag_group.setTags(arrayListOf("Aventura","Animação","Comédia","Família"))
 
     }
 
